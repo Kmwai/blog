@@ -30,17 +30,16 @@ class Post(models.Model):
     objects = models.Manager()  # default manager
     published = PublishedManager()  # custom manager
 
-
-class Meta:
-    ordering = '-publish'
+    class Meta:
+        ordering = '-publish',
 
     # canonicol url for Post objects
     def get_absolute_url(self):
         return reverse('blog:post_detail',
-                       args=[self.published.year,
+                       args=[self.publish.year,
                              self.publish.strftime('%m'),
                              self.publish.strftime('%d'),
                              self.slug])
 
-    def __str__(self):
+    def __str__(self):         # __unicode__ on python 2
         return self.title
