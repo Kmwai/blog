@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'haystack',
-    'blog',
-    'taggit',
+    'haystack.apps.HaystackConfig',
+    'blog.apps.BlogConfig',
+    'taggit.apps.TaggitAppConfig',
     'django.contrib.sites',
     'django.contrib.sitemaps',
 ]
