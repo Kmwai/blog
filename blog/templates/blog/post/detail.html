@@ -11,7 +11,7 @@
     <a href="{% url "blog:post_share" post.id %}">Share this post</a>
     </p>
 
-    <h2>Similar posts</h2>
+    <h4>Similar posts</h4>
     {% for post in similar_posts %}
     <p>
     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
@@ -45,3 +45,4 @@
     </form>
     {% endif %}
 {% endblock %}
+

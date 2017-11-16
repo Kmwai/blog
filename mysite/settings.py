@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'taggit.apps.TaggitAppConfig',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE_CLASSES = [
