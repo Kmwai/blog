@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core.validators import MinLengthValidator, validate_email, RegexValidator, validate_slug
 from taggit.managers import TaggableManager
 
 
@@ -21,7 +22,7 @@ class Post(models.Model):
         ('published', 'Published'),
     )
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    slug = models.SlugField(max_length=250, unique_for_date='publish', validators=[validate_slug])
     author = models.ForeignKey(User, related_name='blog_posts')
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -35,7 +36,7 @@ class Post(models.Model):
     class Meta:
         ordering = '-publish',
 
-    # canonicol url for Post objects
+    # canonical url for Post objects
     def get_absolute_url(self):
         return reverse('blog:post_detail',
                        args=[self.publish.year,
@@ -49,15 +50,15 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
+    name = models.CharField(max_length=20, validators=[MinLengthValidator(10), RegexValidator("^[A-Z][a-z]{1,}$")])
+    email = models.EmailField(validators=[validate_email])
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ('created',)
+        ordering = 'created',
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
