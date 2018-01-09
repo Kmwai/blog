@@ -91,6 +91,7 @@ def post_share(request, post_id):
 
 
 def post_search(request):
+    cd, results, total_results = None, None, None
     form = SearchForm()
     if 'query' in request.GET:
         form = SearchForm(request.GET)
