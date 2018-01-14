@@ -26,7 +26,7 @@ SECRET_KEY = 'sgl7y57*ev2(@49m3((kp+*&f*ua6i*_igbs8o3(s&j-kds2b%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['good-news-blog.herokuapp.com', '127.0.0.1']
 
 SITE_ID = 1
 
