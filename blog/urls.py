@@ -1,17 +1,17 @@
-from django.urls import path, re_path
+from django.urls import path
 from . import views
 from .feeds import LatestPostFeed
 
 app_name = 'blog'
 urlpatterns = [
     # post views
-    re_path(r'^$', views.post_list, name='post_list'),
-    # url(r'^$', views.PostListView.as_view(), name='post_list'),
-    re_path(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/'r'(?P<post>[-\w]+)/$', views.post_detail,
+    path('', views.post_list, name='post_list'),
+    # path(r'^$', views.PostListView.as_view(), name='post_list'),
+    path('<int:year>/<int:month>/<int:day>/<str:post>/', views.post_detail,
          name='post_detail'),
-    re_path(r'^(?P<post_id>\d+)/share/$', views.post_share, name='post_share'),
-    re_path(r'^tag/(?P<tag_slug>[-\w]+)/$', views.post_list, name='post_list_by_tag'),
-    re_path(r'^feed/$', LatestPostFeed(), name='post_feed'),
-    re_path(r'^search/$', views.post_search, name='post_search')
+    path('<int:post_id>/share/', views.post_share, name='post_share'),
+    path('tag/<slug:tag_slug>/', views.post_list, name='post_list_by_tag'),
+    path('feed/', LatestPostFeed(), name='post_feed'),
+    path('search/', views.post_search, name='post_search')
 
 ]
