@@ -1,26 +1,39 @@
 {% load staticfiles %}
 {% load blog_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
     <link href="{% static "css/blog.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
 </head>
 <body>
-<div class="page-header">
-    <h1><a href="{% url "blog:post_list" %}" style="text-decoration: none">Good News</a></h1>
-</div>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-7">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </div>
-</div>
+<header id="header">
+    <a href="{% url 'blog:post_list' %}">
+        <img src="{% static "img/emerald.svg" %}" alt="GN Logo"/>
+        <h1>Good News</h1>
+    </a>
+</header>
 
+<div id="container">
+<main>
+    <ul id="posts">
+        <li class="post">
+            {% block content %}{% endblock %}
+        </li>
+    </ul>
+</main>
+<!--<footer>
+    <span>
+        2018 - Good News
+    </span>
+</footer> -->
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </body>
 </html>

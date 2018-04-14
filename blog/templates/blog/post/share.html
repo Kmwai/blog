@@ -8,11 +8,11 @@
           <h1>E-mail successfully sent</h1>
           <p>"{{ post.title }}" was successfully sent by e-mail.</p>
       {% else %}
-          <h1>Share "{{ post.title }}" by e-mail</h1>
+          <h1>Share "{{ post.title }}"</h1>
           <form action="." method="post">
               {{ form.as_p }}
               {% csrf_token %}
-              <input type="submit" value="Send e-mail">
+              <input type="submit" value="Send e-mail" class="btn btn-primary">
           </form>
       {% endif %}
   {% endblock %}
