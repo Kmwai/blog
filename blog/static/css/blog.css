@@ -106,10 +106,10 @@ body {
         margin-bottom: 0.3334em;
     }
 }
-.post + .post:before {
+.post+.post:before {
     display: block;
     content: '';
-    width: 5rem;
+    width: 30rem;
     height: 1px;
     margin: 23px auto;
     background-color: #d5d5d5;
