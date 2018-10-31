@@ -7,33 +7,46 @@
     <title>{% block title %}{% endblock %}</title>
 
     <link href="{% static "css/blog.css" %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
 </head>
 <body>
 <header id="header">
     <a href="{% url 'blog:post_list' %}">
-        <img src="{% static "img/emerald.svg" %}" alt="GN Logo"/>
-        <h1>Good News</h1>
+       <!-- <img src="{% static "img/emerald.svg" %}" alt="GN Logo"/> -->
+        <h1 class="heading-xl">Good News</h1>
     </a>
 </header>
 
-<div id="container">
-<main>
-    <ul id="posts">
-        <li class="post">
-            {% block content %}{% endblock %}
-        </li>
-    </ul>
+<div class="container">
+
+
+<main class="blog-wrapper">
+    <div class="grid-row">
+        <div class="grid-column-two-thirds">
+            <h1 class="heading-l"></h1>
+             <div class="posts"></div>
+
+                    {% block content %}{% endblock %}
+
+        </div>
+    </div>
 </main>
+<div class="grid-row">
+        <div class="column-two-thirds">
+            <footer>
+                 <p class="copyright"> &#169 2018 Mwai Karimi.<a href="https://twitter.com/openbk"
+                                                                  target="_blank">Twitter</a>.
+                      <a href="https://github.com/Kmwai" target="_blank">Github</a> </p>
+              </footer>
+         </div>
+</div>
 <!--<footer>
     <span>
         2018 - Good News
     </span>
 </footer> -->
+
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </body>
 </html>
