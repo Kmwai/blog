@@ -10,11 +10,11 @@
     {% endif %}
 
     {% for post in posts %}
-            <li class="post">
+            <p class="post">
 
-                <h2>
+                <h3>
                     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                </h2>
+                </h3>
             <p class="by-line">
                     Published by {{ post.publish }} by {{ post.author }}
             </p>
@@ -26,7 +26,7 @@
                 <a href="{% url "blog:post_list_by_tag" tag.slug %}">{{ tag.name }}</a>
                 {% if not forloop.last %}, {% endif %}
             {% endfor %}
-        </li>
+        </p>
         {% endfor %}
 
 
