@@ -6,7 +6,7 @@ from django.core.validators import MinLengthValidator, validate_email, RegexVali
 from taggit.managers import TaggableManager
 
 
-# add custom manager
+# add custom published manager
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager,
@@ -14,12 +14,14 @@ class PublishedManager(models.Manager):
 
 
 class Post(models.Model):
+    # post model
+
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique_for_date='publish', validators=[validate_slug])
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique_for_date='publish', validators=[validate_slug])
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -27,7 +29,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     objects = models.Manager()  # default manager
-    published = PublishedManager()  # custom manager
+    published = PublishedManager()  # custom published manager
     tags = TaggableManager()
 
     class Meta:
@@ -46,6 +48,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    # comment model
+
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=20, validators=[MinLengthValidator(10), RegexValidator("^[A-Z][a-z]{1,}$")])
     email = models.EmailField(validators=[validate_email])
