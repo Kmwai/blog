@@ -26,7 +26,7 @@ SECRET_KEY = 'sgl7y57*ev2(@49m3((kp+*&f*ua6i*_igbs8o3(s&j-kds2b%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['good-news-blog.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['good-news-blog.herokuapp.com', '127.0.0.1', 'localhost', 'testserver']
 
 SITE_ID = 1
 
@@ -39,11 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'haystack.apps.HaystackConfig',
     'blog.apps.BlogConfig',
     'taggit.apps.TaggitAppConfig',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
+
 
 ]
 
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -85,8 +86,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'name',
+        'USER': 'user',
+        'PASSWORD': 'password',
     }
 }
 
@@ -155,4 +158,4 @@ DATABASES['default'].update(db_from_env)
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
