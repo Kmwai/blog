@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
+from django.contrib.postgres.search import SearchVector
 from .forms import EmailPostForm, CommentForm, SearchForm
 from .models import Post
 from taggit.models import Tag
 from django.db.models import Count
-from haystack.query import SearchQuerySet
 
 
 def post_list(request, tag_slug=None):
@@ -91,17 +91,18 @@ def post_share(request, post_id):
 
 
 def post_search(request):
-    cd, results, total_results = None, None, None
     form = SearchForm()
+    query = None
+    results = []
+
     if 'query' in request.GET:
         form = SearchForm(request.GET)
         if form.is_valid():
-            cd = form.cleaned_data
-            results = SearchQuerySet().models(Post).filter(content=cd['query']).load_all()
-            # count total results
-            total_results = results.count()
+            query = form.cleaned_data['query']
+            results = Post.objects.annotate(search=SearchVector('title', 'body'),).filter(search=query)
+
     return render(request, 'blog/post/search.html', {'form': form,
-                                                     'cd': cd,
-                                                     'results': results,
-                                                     'total_results': total_results})
+                                                     'query': query,
+                                                     'results': results})
+
 
